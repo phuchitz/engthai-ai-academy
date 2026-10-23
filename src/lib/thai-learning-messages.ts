@@ -107,17 +107,94 @@ export const thaiLearningMessages: Record<string, string> = {
     "ข้อมูลส่วนตัว คำตอบ บทเรียน และการทบทวนจะถูกล้างจากเบราว์เซอร์นี้ หากต้องการเก็บสำเนา ให้ดาวน์โหลดก่อน",
   "Yes, reset my progress": "ยืนยัน ล้างข้อมูลของฉัน",
   "Keep my progress": "เก็บข้อมูลไว้",
-  "COMING IN A FUTURE ITERATION": "กำลังเตรียมสำหรับเวอร์ชันถัดไป",
-  "A thoughtful tutor takes thoughtful preparation.":
-    "กำลังเตรียมผู้ช่วยสอนให้พร้อมใช้งาน",
-  "AI chat, writing feedback, and conversation practice are not connected yet. When available, responses will be generated securely on the server, with clear feedback and evidence limits.":
-    "แชต AI การตรวจงานเขียน และการฝึกสนทนายังไม่เปิดใช้งาน ระหว่างนี้สามารถฝึกจากบทเรียนที่มีอยู่ได้",
-  "Clear grammar help": "ช่วยอธิบายไวยากรณ์",
-  "Everyday conversations": "ฝึกบทสนทนาในชีวิตประจำวัน",
-  "Listening & speaking practice": "ฝึกฟังและพูด",
   "Explore today's lessons": "ไปเลือกบทเรียนวันนี้",
   "A LITTLE HELP, WHEN YOU NEED IT": "ผู้ช่วยในการฝึกภาษาอังกฤษ",
-  "Meet your future learning companion.": "ผู้ช่วยสอน AI ของคุณ",
-  "Patient explanations. Real-life conversations. English at your pace.":
-    "คำอธิบายเข้าใจง่าย ฝึกบทสนทนา และเรียนตามจังหวะของคุณ",
+  "Your AI English tutor.": "ติวเตอร์ภาษาอังกฤษ AI ของคุณ",
+  "Ask about English, get feedback on your writing, or practise a real-life conversation.":
+    "ถามเรื่องภาษาอังกฤษ ให้ตรวจงานเขียน หรือฝึกบทสนทนาในสถานการณ์จริง",
+  "Sign in to talk with the AI tutor.": "เข้าสู่ระบบเพื่อคุยกับติวเตอร์ AI",
+  "The AI tutor runs securely on our server and is available to signed-in learners only.":
+    "ติวเตอร์ AI ทำงานบนเซิร์ฟเวอร์อย่างปลอดภัย และเปิดให้เฉพาะผู้เรียนที่เข้าสู่ระบบแล้ว",
+  "The AI tutor isn't available yet.": "ติวเตอร์ AI ยังไม่พร้อมใช้งาน",
+  "We couldn't check the tutor right now. Please try again later.":
+    "ตอนนี้ตรวจสอบสถานะติวเตอร์ไม่ได้ กรุณาลองใหม่ภายหลัง",
+  "The app owner still needs to connect an AI provider on the server. Your lessons and vocabulary practice work as usual.":
+    "ผู้ดูแลแอปยังไม่ได้เชื่อมต่อผู้ให้บริการ AI บนเซิร์ฟเวอร์ บทเรียนและการฝึกคำศัพท์ยังใช้งานได้ตามปกติ",
+  "Tutor mode": "รูปแบบการฝึกกับติวเตอร์",
+  "Ask the tutor": "ถามติวเตอร์",
+  "Check my writing": "ตรวจงานเขียน",
+  "Practise a conversation": "ฝึกบทสนทนา",
+  Scenario: "สถานการณ์",
+  "More natural:": "พูดให้เป็นธรรมชาติขึ้น:",
+  "Nice work — this conversation has reached a natural end.":
+    "เก่งมาก บทสนทนานี้จบอย่างเป็นธรรมชาติแล้ว",
+  "Start again": "เริ่มใหม่",
+  "For example: When do I use 'since' and 'for'?":
+    "เช่น ใช้ 'since' กับ 'for' ต่างกันอย่างไร?",
+  "Write a few English sentences you'd like feedback on.":
+    "เขียนประโยคภาษาอังกฤษสั้น ๆ ที่อยากให้ช่วยตรวจ",
+  "Type your reply in English.": "พิมพ์คำตอบเป็นภาษาอังกฤษ",
+  "Thinking…": "กำลังคิด…",
+  Send: "ส่ง",
+  "Suggested version": "ฉบับที่แนะนำ",
+  "What you did well": "สิ่งที่ทำได้ดี",
+  spelling: "การสะกดคำ",
+  clarity: "ความชัดเจน",
+  "AI feedback can be wrong. It is practice support, not an assessment score or CEFR level. Avoid sharing personal or sensitive information.":
+    "คำแนะนำจาก AI อาจผิดพลาดได้ ใช้เพื่อช่วยฝึกเท่านั้น ไม่ใช่คะแนนประเมินหรือระดับ CEFR และไม่ควรใส่ข้อมูลส่วนตัวหรือข้อมูลอ่อนไหว",
+  "The AI tutor is not configured yet.": "ติวเตอร์ AI ยังไม่ได้ตั้งค่า",
+  "Please sign in again to use the AI tutor.":
+    "กรุณาเข้าสู่ระบบอีกครั้งเพื่อใช้ติวเตอร์ AI",
+  "Please check your message and try again.":
+    "กรุณาตรวจข้อความแล้วลองใหม่อีกครั้ง",
+  "You've reached the AI tutor limit for now. Please try again later.":
+    "ใช้ติวเตอร์ AI ครบจำนวนแล้วในตอนนี้ กรุณาลองใหม่ภายหลัง",
+  "The tutor is busy. Please try again shortly.":
+    "ติวเตอร์กำลังยุ่ง กรุณาลองใหม่ในอีกสักครู่",
+  "The tutor took too long to respond. Please try again.":
+    "ติวเตอร์ตอบช้าเกินไป กรุณาลองใหม่อีกครั้ง",
+  "The tutor couldn't help with that message. Try asking about English.":
+    "ติวเตอร์ช่วยเรื่องนี้ไม่ได้ ลองถามเกี่ยวกับภาษาอังกฤษดูนะ",
+  "The tutor is unavailable right now. Please try again later.":
+    "ตอนนี้ติวเตอร์ยังใช้งานไม่ได้ กรุณาลองใหม่ภายหลัง",
+  Speak: "พูด",
+  Stop: "หยุด",
+  "Listen & speak": "ฝึกฟังและพูด",
+  "TRAIN YOUR EARS AND VOICE": "ฝึกหูและฝึกพูด",
+  "Listen closely. Speak with confidence.": "ฟังให้เข้าใจ พูดอย่างมั่นใจ",
+  "Short listening tasks and read-aloud practice using your browser's voice features.":
+    "แบบฝึกฟังสั้น ๆ และฝึกอ่านออกเสียง โดยใช้ระบบเสียงของเบราว์เซอร์",
+  "Practice type": "ประเภทการฝึก",
+  Listening: "ฝึกฟัง",
+  Speaking: "ฝึกพูด",
+  "Audio playback isn't available in this browser. Try a recent version of Chrome, Edge, or Safari.":
+    "เบราว์เซอร์นี้เล่นเสียงไม่ได้ ลองใช้ Chrome, Edge หรือ Safari เวอร์ชันล่าสุด",
+  "Play audio": "ฟังเสียง",
+  "Play again": "ฟังอีกครั้ง",
+  "Play slowly": "ฟังแบบช้า",
+  "Correct. Nicely heard!": "ถูกต้อง ฟังได้ดีมาก!",
+  "Show transcript": "ดูบทพูด",
+  "Next audio": "ฟังข้อต่อไป",
+  "Audio uses your browser's built-in voices, so the accent and quality depend on your device. This is practice, not a listening assessment.":
+    "เสียงมาจากระบบเสียงในเบราว์เซอร์ สำเนียงและคุณภาพจึงขึ้นกับอุปกรณ์ ใช้สำหรับฝึก ไม่ใช่การประเมินทักษะการฟัง",
+  "READ THIS SENTENCE ALOUD": "อ่านประโยคนี้ออกเสียง",
+  "Hear an example": "ฟังตัวอย่าง",
+  "Try again": "ลองอีกครั้ง",
+  "Start speaking": "เริ่มพูด",
+  "Speech recognition isn't available in this browser. Try Chrome or Edge on a computer or Android, or Safari on iPhone.":
+    "เบราว์เซอร์นี้ไม่รองรับการรับเสียงพูด ลองใช้ Chrome หรือ Edge บนคอมพิวเตอร์หรือ Android หรือ Safari บน iPhone",
+  "Listening… speak now.": "กำลังฟัง… พูดได้เลย",
+  "What the browser heard:": "สิ่งที่เบราว์เซอร์ได้ยิน:",
+  "Next sentence": "ประโยคถัดไป",
+  "Speech recognition is provided by your browser and may send your voice to its provider (for example, Google in Chrome). EngThai does not record or store audio. Word matching shows what the recognizer understood; it is not a pronunciation score.":
+    "การรับเสียงพูดเป็นบริการของเบราว์เซอร์ และอาจส่งเสียงของคุณไปยังผู้ให้บริการ (เช่น Google ใน Chrome) EngThai ไม่บันทึกหรือเก็บไฟล์เสียง การเทียบคำแสดงเฉพาะสิ่งที่ระบบเข้าใจ ไม่ใช่คะแนนการออกเสียง",
+  "Microphone access was blocked. Allow the microphone in your browser settings and try again.":
+    "ไมโครโฟนถูกบล็อก กรุณาอนุญาตไมโครโฟนในการตั้งค่าเบราว์เซอร์แล้วลองใหม่",
+  "We didn't hear anything. Try again a little closer to the microphone.":
+    "ไม่ได้ยินเสียง ลองพูดใกล้ไมโครโฟนขึ้นอีกนิด",
+  "No microphone was found on this device.": "ไม่พบไมโครโฟนในอุปกรณ์นี้",
+  "Speech recognition needs an internet connection. Please try again.":
+    "การรับเสียงพูดต้องใช้อินเทอร์เน็ต กรุณาลองใหม่",
+  "Speech recognition stopped unexpectedly. Please try again.":
+    "การรับเสียงพูดหยุดกะทันหัน กรุณาลองใหม่",
 };

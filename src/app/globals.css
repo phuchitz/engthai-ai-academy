@@ -1899,19 +1899,117 @@ progress::-moz-progress-bar {
   line-height: 1.9;
   font-size: 13px;
 }
-.tutor-capabilities {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 25px 0 35px;
-  color: var(--muted);
-  font-size: 10px;
-}
-.tutor-capabilities span {
-  display: flex;
+.topic-chip {
+  display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
+}
+.tutor-panel {
+  max-width: 850px;
+  margin: 18px auto 0;
+  padding: 22px;
+}
+.tutor-panel textarea {
+  width: 100%;
+  resize: vertical;
+  margin-bottom: 12px;
+}
+.tutor-panel h2 {
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+.tutor-panel h3 {
+  font-size: 15px;
+  margin: 18px 0 8px;
+}
+.tutor-answer {
+  white-space: pre-line;
+  line-height: 1.9;
+}
+.tutor-examples,
+.writing-issues {
+  display: grid;
+  gap: 10px;
+  padding-left: 18px;
+}
+.writing-issues {
+  list-style: none;
+  padding: 0;
+}
+.writing-issues li {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+.writing-issues p {
+  margin: 6px 0;
+}
+.chat-log {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: grid;
+  gap: 10px;
+}
+.chat-turn {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--bg);
+}
+.chat-turn p {
+  margin: 0;
+}
+.chat-turn.learner {
+  justify-self: end;
+  background: var(--lavender);
+}
+.chat-note {
+  margin-top: 6px !important;
+  font-size: 13px;
+  color: var(--mint-ink);
+}
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--primary-dark);
+  font-weight: 600;
+  cursor: pointer;
+}
+.listening-tags {
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 0 16px;
+}
+.listening-plays {
+  font-size: 12px;
+  margin: 10px 0 20px;
+}
+.speaking-target {
+  font-size: 26px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+.word-heard {
+  color: var(--mint-ink);
+}
+.word-missed {
+  color: #b0603a;
+  text-decoration: underline dotted;
+}
+.speaking-result {
+  margin: 16px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--mint);
+}
+.speaking-result p {
+  margin: 4px 0;
+}
+.tutor-disclaimer {
+  max-width: 850px;
+  margin: 16px auto 30px;
+  text-align: center;
 }
 .settings-data {
   max-width: 790px;
@@ -3523,10 +3621,6 @@ progress::-moz-progress-bar {
   }
   .tutor-intro {
     padding: 28px 18px;
-  }
-  .tutor-capabilities {
-    flex-direction: column;
-    align-items: center;
   }
   .settings-data {
     padding: 25px 18px;

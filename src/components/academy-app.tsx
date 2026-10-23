@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Clock3,
   GraduationCap,
+  Headphones,
   House,
   Leaf,
   LogOut,
@@ -42,6 +43,7 @@ import { LessonPlayer, Vocabulary } from "./practice";
 import { Progress } from "./progress";
 import { Settings } from "./settings";
 import { Tutor } from "./tutor";
+import { ListenSpeak } from "./listen-speak";
 
 const navigation = [
   { screen: "dashboard", label: "My learning", icon: House },
@@ -49,6 +51,7 @@ const navigation = [
   { screen: "vocabulary", label: "Vocabulary", icon: GraduationCap },
   { screen: "grammar", label: "Grammar studio", icon: AudioLines },
   { screen: "tutor", label: "AI tutor", icon: MessageCircle },
+  { screen: "listen-speak", label: "Listen & speak", icon: Headphones },
   { screen: "progress", label: "My progress", icon: TrendingUp },
 ];
 
@@ -208,9 +211,6 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
             >
               <Icon size={19} strokeWidth={1.7} />
               <span>{t(label)}</span>
-              {destination === "tutor" && (
-                <span className="nav-tag">{t("SOON")}</span>
-              )}
             </Link>
           ))}
         </nav>
@@ -586,7 +586,14 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                   {screen === "progress" && (
                     <Progress state={state} base={base} />
                   )}
-                  {screen === "tutor" && <Tutor base={base} />}
+                  {screen === "tutor" && (
+                    <Tutor
+                      base={base}
+                      demo={demo}
+                      level={result?.estimatedLevel ?? null}
+                    />
+                  )}
+                  {screen === "listen-speak" && <ListenSpeak />}
                   {screen === "settings" && (
                     <>
                       <PageHeading

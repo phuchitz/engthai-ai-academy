@@ -7,6 +7,7 @@ export const supportedScreens = [
   "vocabulary",
   "grammar",
   "tutor",
+  "listen-speak",
   "progress",
   "settings",
   "lesson/sentence-foundations",

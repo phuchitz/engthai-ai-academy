@@ -4,12 +4,13 @@
 
 ไฟล์ `.env.vercel.local` ที่ root ของโปรเจกต์เป็นไฟล์ส่วนตัวและถูก Git ignore ไม่ต้อง commit หรือ push ไฟล์นี้
 
-| ตัวแปร               | สถานะ                                                                  |
-| -------------------- | ---------------------------------------------------------------------- |
-| `AUTH_GOOGLE_ID`     | ใส่ Client ID ที่ได้รับแล้ว                                            |
-| `AUTH_SECRET`        | สร้างค่าสุ่ม 32 bytes แล้ว เก็บไว้เฉพาะไฟล์ส่วนตัว                     |
-| `AUTH_GOOGLE_SECRET` | ต้องเติม Client Secret จาก Google Cloud ของ Client ID เดียวกัน         |
-| `AUTH_URL`           | ไม่จำเป็นสำหรับ Vercel ตามปกติ เพราะ Auth.js v5 ตรวจ host ได้อัตโนมัติ |
+| ตัวแปร               | สถานะ                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------------------- |
+| `AUTH_GOOGLE_ID`     | ใส่ Client ID ที่ได้รับแล้ว                                                                       |
+| `AUTH_SECRET`        | สร้างค่าสุ่ม 32 bytes แล้ว เก็บไว้เฉพาะไฟล์ส่วนตัว                                                |
+| `AUTH_GOOGLE_SECRET` | ต้องเติม Client Secret จาก Google Cloud ของ Client ID เดียวกัน                                    |
+| `AUTH_URL`           | ไม่จำเป็นสำหรับ Vercel ตามปกติ เพราะ Auth.js v5 ตรวจ host ได้อัตโนมัติ                            |
+| `ANTHROPIC_API_KEY`  | ไม่บังคับ ใส่เมื่อต้องการเปิดติวเตอร์ AI (สร้างที่ Anthropic Console และตั้ง spend limit ไว้ด้วย) |
 
 ไฟล์ส่วนตัวนี้ไม่ได้อยู่ใน Git clone เครื่องอื่น หากต้องสร้างใหม่ให้ใช้ `.env.example` เป็นแนวทางและสร้าง secret ใหม่ อย่านำ `AUTH_URL=http://localhost:3000` ไปใช้บน Vercel หากจำเป็นต้องกำหนด `AUTH_URL` ให้ใช้ HTTPS origin จริงของ deployment นั้น และแยกค่าระหว่าง Preview กับ Production
 
