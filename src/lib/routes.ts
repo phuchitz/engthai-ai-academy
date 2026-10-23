@@ -1,0 +1,18 @@
+export const supportedScreens = [
+  "dashboard",
+  "onboarding",
+  "assessment",
+  "results",
+  "lessons",
+  "vocabulary",
+  "grammar",
+  "tutor",
+  "progress",
+  "settings",
+  "lesson/sentence-foundations",
+  "lesson/past-stories",
+  "lesson/everyday-words",
+  "lesson/travel-words",
+  "lesson/reading-details",
+  "lesson/reading-reasons",
+];
