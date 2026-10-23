@@ -26,6 +26,22 @@ export default async function RootLayout({
   const language = parseLanguage((await cookies()).get(LANGUAGE_COOKIE)?.value);
   return (
     <html lang={language}>
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/NotoSansThai-Variable.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/LINESeedSansTH_W_Bd.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <LanguageProvider initialLanguage={language}>
           <SkipLink />

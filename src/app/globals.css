@@ -1,10 +1,13 @@
 @import "tailwindcss";
+@import "./fonts.css";
 
 @theme inline {
-  --font-sans:
-    "Inter", "Noto Sans Thai", "Leelawadee UI", "Segoe UI", sans-serif;
+  --font-sans: var(--font-body);
 }
 :root {
+  --font-heading:
+    "LINE Seed Thai", "Noto Sans Thai", "Leelawadee UI", "Segoe UI", sans-serif;
+  --font-body: "Noto Sans Thai", "Leelawadee UI", "Segoe UI", sans-serif;
   --bg: #f8f9fc;
   --surface: #fff;
   --ink: #302b41;
@@ -119,6 +122,33 @@ h3 {
   line-height: 1.45;
   font-weight: 650;
   margin-bottom: 5px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+.button,
+nav,
+label,
+legend,
+.brand,
+.eyebrow,
+.card-eyebrow,
+.step-label,
+.field-label,
+.lesson-meta,
+.xp-badge,
+.stat-card,
+.text-link {
+  font-family: var(--font-heading);
+}
+.answer-option,
+.question-card h2,
+.lesson-content h2[lang] {
+  font-family: var(--font-body);
 }
 p {
   margin-bottom: 14px;
@@ -1104,7 +1134,7 @@ progress::-moz-progress-bar {
   color: #8b9c7d;
 }
 .word-preview h3 {
-  font-family: Georgia, serif;
+  font-family: var(--font-body);
   font-size: 26px;
   font-weight: 400;
   margin: 16px 0 5px;
@@ -1125,7 +1155,7 @@ progress::-moz-progress-bar {
   margin: 13px 0 18px;
   padding-left: 10px;
   border-left: 2px solid #dce5d4;
-  font-family: Georgia, serif;
+  font-family: var(--font-body);
   font-size: 13px;
   line-height: 1.8;
   font-style: italic;
@@ -1593,7 +1623,7 @@ progress::-moz-progress-bar {
   min-height: 365px;
 }
 .flashcard h2 {
-  font-family: Georgia, serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 50px;
   letter-spacing: -1.4px;
