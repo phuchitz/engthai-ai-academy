@@ -169,43 +169,7 @@ export const lessons: Lesson[] = [
   },
 ];
 
-export const vocabulary: VocabularyItem[] = [
-  {
-    id: "confident",
-    word: "confident",
-    pronunciation: "/ˈkɒn.fɪ.dənt/",
-    thai: "มั่นใจ",
-    example: "I feel more confident speaking English every day.",
-  },
-  {
-    id: "improve",
-    word: "improve",
-    pronunciation: "/ɪmˈpruːv/",
-    thai: "พัฒนา / ทำให้ดีขึ้น",
-    example: "A little practice can improve your skills.",
-  },
-  {
-    id: "reliable",
-    word: "reliable",
-    pronunciation: "/rɪˈlaɪ.ə.bəl/",
-    thai: "เชื่อถือได้",
-    example: "She is a reliable teammate.",
-  },
-  {
-    id: "opportunity",
-    word: "opportunity",
-    pronunciation: "/ˌɒp.əˈtjuː.nə.ti/",
-    thai: "โอกาส",
-    example: "This project is an opportunity to learn.",
-  },
-  {
-    id: "remind",
-    word: "remind",
-    pronunciation: "/rɪˈmaɪnd/",
-    thai: "เตือนความจำ",
-    example: "Please remind me to practise tomorrow.",
-  },
-];
+export { vocabulary } from "./vocabulary";
 
 export function buildLearningPath(
   result: AssessmentResult | null,
@@ -292,5 +256,47 @@ export function scheduleReview(
     due: new Date(now.getTime() + intervalDays * 86400000).toISOString(),
     intervalDays,
     repetitions: remembered ? (previous?.repetitions ?? 0) + 1 : 0,
+    // Older saved reviews have no introduction time; they never count toward today's new words.
+    introducedAt: previous ? previous.introducedAt : now.toISOString(),
+  };
+}
+
+export const NEW_WORDS_PER_DAY = 10;
+
+// Due reviews come first (oldest first), then unseen words from preferred topics, within a
+// daily limit on new words across all topics (Bangkok calendar day).
+export function vocabularyQueue(
+  items: VocabularyItem[],
+  reviews: VocabularyReview[],
+  now: Date,
+  preferredTopics: readonly string[] = [],
+) {
+  const reviewFor = new Map(reviews.map((r) => [r.itemId, r]));
+  const due = items
+    .filter((item) => {
+      const review = reviewFor.get(item.id);
+      return review && new Date(review.due) <= now;
+    })
+    .sort(
+      (a, b) =>
+        new Date(reviewFor.get(a.id)!.due).getTime() -
+        new Date(reviewFor.get(b.id)!.due).getTime(),
+    );
+  const unseen = items
+    .filter((item) => !reviewFor.has(item.id))
+    .sort(
+      (a, b) =>
+        Number(preferredTopics.includes(b.topic)) -
+        Number(preferredTopics.includes(a.topic)),
+    );
+  const today = dayKey(now);
+  const newToday = reviews.filter(
+    (r) => r.introducedAt && dayKey(new Date(r.introducedAt)) === today,
+  ).length;
+  return {
+    due,
+    fresh: unseen.slice(0, Math.max(0, NEW_WORDS_PER_DAY - newToday)),
+    unseen: unseen.length,
+    newToday,
   };
 }

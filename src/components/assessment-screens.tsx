@@ -34,7 +34,7 @@ export function Assessment({
   const { t, language } = useLanguage();
   const [selection, setSelection] = useState<number | null>(null);
   const answers = state.assessment?.answers ?? [];
-  const question = nextQuestion(answers);
+  const question = nextQuestion(answers, state.assessment?.id);
   const count = validAnswers(answers).length;
   function start() {
     update({
@@ -52,7 +52,7 @@ export function Assessment({
       ...answers,
       { questionId: question.id, option: selection },
     ];
-    const done = nextQuestion(nextAnswers) === null;
+    const done = nextQuestion(nextAnswers, state.assessment.id) === null;
     if (
       update({
         ...state,
@@ -197,6 +197,17 @@ export function Assessment({
           </blockquote>
         )}
         <h2 lang="en">{question.prompt}</h2>
+        {question.thai && (
+          <details className="thai-hint">
+            <summary>{t("Show Thai help")}</summary>
+            <p lang="th">{question.thai}</p>
+            <small className="muted">
+              {t(
+                "Thai help explains the task only. Answer choices and reading passages stay in English.",
+              )}
+            </small>
+          </details>
+        )}
         <fieldset className="answer-options">
           <legend className="sr-only">{t("Choose your answer")}</legend>
           {question.options.map((option, i) => (

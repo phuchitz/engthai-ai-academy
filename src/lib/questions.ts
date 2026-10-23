@@ -1,4 +1,5 @@
 import type { AssessmentQuestion, AssessedSkill, Level } from "./models";
+import { questionThai } from "./question-thai";
 
 // Author-created draft content. Requires independent language educator review before validated use.
 type Entry = [
@@ -26,6 +27,20 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         "Use the base verb 'have' with 'they' for routines.",
         "Describe everyday routines",
       ],
+      [
+        "___ you like coffee?",
+        ["Does", "Are", "Do", "Is"],
+        2,
+        "Use 'Do' to make a present simple question with 'you'.",
+        "Ask simple yes/no questions",
+      ],
+      [
+        "There ___ two cats in the garden.",
+        ["is", "are", "am", "be"],
+        1,
+        "Use 'there are' with a plural noun.",
+        "Describe what exists with there is/are",
+      ],
     ],
     A2: [
       [
@@ -41,6 +56,20 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         0,
         "The comparative form of 'easy' is 'easier'.",
         "Compare people and things",
+      ],
+      [
+        "I ___ TV when my phone rang.",
+        ["watched", "was watching", "am watching", "watch"],
+        1,
+        "Use the past continuous for an action in progress when another event happened.",
+        "Describe interrupted past actions",
+      ],
+      [
+        "You ___ wear a helmet when you ride a motorbike. It's the law.",
+        ["must", "can", "might", "would"],
+        0,
+        "Use 'must' for a rule or obligation.",
+        "Express rules and obligation",
       ],
     ],
     B1: [
@@ -58,6 +87,20 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         "Use 'since' with a starting point and the present perfect.",
         "Connect past experience to the present",
       ],
+      [
+        "The new bridge ___ next year.",
+        ["will build", "will be built", "is building", "builds"],
+        1,
+        "The bridge receives the action, so use the future passive 'will be built'.",
+        "Use the passive voice",
+      ],
+      [
+        "I'm used to ___ up early for work.",
+        ["get", "got", "getting", "have got"],
+        2,
+        "'Be used to' is followed by a noun or an -ing form.",
+        "Describe familiar habits with be used to",
+      ],
     ],
     B2: [
       [
@@ -73,6 +116,20 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         0,
         "'Whose' expresses possession in this relative clause.",
         "Use complex relative clauses",
+      ],
+      [
+        "Not only ___ late, but he also forgot the documents.",
+        ["he arrived", "did he arrive", "he did arrive", "arrived he"],
+        1,
+        "After a negative phrase such as 'Not only' at the start, invert the auxiliary and subject.",
+        "Use inversion for emphasis",
+      ],
+      [
+        "It's high time we ___ a decision about the project.",
+        ["make", "made", "will make", "making"],
+        1,
+        "After 'It's (high) time', use the past simple to talk about the present.",
+        "Use past forms with present meaning",
       ],
     ],
   },
@@ -92,6 +149,20 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         "Water is a drink; it is appropriate when you are thirsty.",
         "Recognize everyday needs",
       ],
+      [
+        "Which word is a colour?",
+        ["Green", "Happy", "Tall", "Slow"],
+        0,
+        "Green is a colour; the other words describe feelings, size, or speed.",
+        "Recognize basic describing words",
+      ],
+      [
+        "The opposite of 'hot' is ___.",
+        ["warm", "cold", "big", "wet"],
+        1,
+        "'Cold' is the opposite of 'hot'.",
+        "Recognize common opposites",
+      ],
     ],
     A2: [
       [
@@ -108,6 +179,20 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         "A crowded train has a lot of passengers.",
         "Understand common descriptions",
       ],
+      [
+        "Please ___ off your phone during the film.",
+        ["take", "turn", "put", "get"],
+        1,
+        "To 'turn off' a device means to stop it working.",
+        "Use common phrasal verbs",
+      ],
+      [
+        "My flight was ___, so I waited at the airport for three hours.",
+        ["delayed", "direct", "cheap", "comfortable"],
+        0,
+        "A delayed flight leaves later than planned.",
+        "Understand common travel problems",
+      ],
     ],
     B1: [
       [
@@ -123,6 +208,20 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         1,
         "A reliable supplier can be trusted to deliver consistently.",
         "Understand everyday workplace vocabulary",
+      ],
+      [
+        "The hotel is in a very ___ location, just two minutes from the station.",
+        ["convenient", "confidential", "considerate", "conscious"],
+        0,
+        "'Convenient' means easy to reach or use; the other words look similar but mean different things.",
+        "Distinguish similar-looking adjectives",
+      ],
+      [
+        "The manager was sick, so we had to ___ the meeting until next week.",
+        ["postpone", "attend", "cancel", "arrange"],
+        0,
+        "To 'postpone' is to move an event to a later time; 'until next week' signals this.",
+        "Choose verbs for changing plans",
       ],
     ],
     B2: [
@@ -145,6 +244,30 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         "To undermine an argument is to weaken its support.",
         "Understand evaluative language",
       ],
+      [
+        "Her instructions were so ambiguous that ___.",
+        [
+          "everyone understood them immediately",
+          "people interpreted them in different ways",
+          "they were very short",
+          "nobody received them",
+        ],
+        1,
+        "Something ambiguous can be understood in more than one way.",
+        "Interpret precise descriptive vocabulary",
+      ],
+      [
+        "The director was reluctant to approve the budget. She was ___.",
+        [
+          "eager to approve it",
+          "hesitant to approve it",
+          "unable to read it",
+          "proud of it",
+        ],
+        1,
+        "Being reluctant means being unwilling or hesitant to do something.",
+        "Understand vocabulary that expresses attitude",
+      ],
     ],
   },
   reading: {
@@ -164,6 +287,22 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         "Mali says she will take the bus.",
         "Understand a simple personal message",
         "Hi Ben! I will take the bus to your house. See you at two. —Mali",
+      ],
+      [
+        "Who does Dao live with?",
+        ["Her father", "Her mother and brothers", "Her friends", "Her sister"],
+        1,
+        "Dao says she lives with her mother and two brothers.",
+        "Understand simple personal information",
+        "My name is Dao. I live in Bangkok with my mother and two brothers. I work in a bank.",
+      ],
+      [
+        "How much is a T-shirt today?",
+        ["15 baht", "50 baht", "150 baht", "500 baht"],
+        2,
+        "The sign gives the sale price of 150 baht.",
+        "Find prices and numbers in a short notice",
+        "Sale! All T-shirts 150 baht. Today only.",
       ],
     ],
     A2: [
@@ -193,6 +332,27 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         "Identify a reason in a short narrative",
         "Arun planned to go cycling with a friend. When it started raining, they decided to visit the science museum instead. They enjoyed the afternoon indoors.",
       ],
+      [
+        "Why will the water be turned off?",
+        [
+          "To save money",
+          "To clean the building",
+          "To repair a pipe",
+          "Because of a holiday",
+        ],
+        2,
+        "The notice says the water will be off while a pipe is repaired.",
+        "Understand the purpose of a practical notice",
+        "Dear residents, the water will be turned off on Tuesday from 9 am to 1 pm while we repair a pipe. Please store some water before then. Thank you, Building Management.",
+      ],
+      [
+        "How often does Ploy play the guitar now?",
+        ["Every day", "Once a week", "Twice a week", "Never"],
+        1,
+        "She is busy at work, so she now plays only on Sundays.",
+        "Understand frequency and change over time",
+        "Ploy started learning the guitar last year. At first she practised every day, but now she is busy at work, so she only plays on Sundays. She hopes to join a band one day.",
+      ],
     ],
     B1: [
       [
@@ -220,6 +380,32 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         "The writer recommends agreeing which channels suit different situations.",
         "Follow advice and supporting reasons",
         "Our team uses several messaging tools, which sometimes leads to missed updates. Rather than adding another tool, we should agree on which channel to use for urgent issues and which for routine updates. Clear expectations would help everyone.",
+      ],
+      [
+        "Why does the writer suggest avoiding coffee after lunch?",
+        [
+          "Coffee is expensive",
+          "Caffeine may make it harder to sleep",
+          "Water tastes better",
+          "Coffee is bad for the stomach",
+        ],
+        1,
+        "The writer explains that caffeine stays in the body and can affect sleep.",
+        "Identify cause and effect in an explanation",
+        "Many people think an afternoon coffee is harmless. However, caffeine can stay in the body for several hours, so it may make it harder to fall asleep at night. If you have trouble sleeping, try drinking water or decaffeinated drinks after lunch.",
+      ],
+      [
+        "How was the class different from what the writer expected?",
+        [
+          "The teacher was unfriendly",
+          "The class was bigger",
+          "The food was disappointing",
+          "The class was cancelled",
+        ],
+        1,
+        "The reviews described a small class, but there were twenty students.",
+        "Compare expectations with what actually happened",
+        "I booked a cooking class for my holiday in Chiang Mai. The reviews said the teacher was friendly and the class was small. In fact, there were twenty students, so I hardly had a chance to ask questions. The food was delicious, though.",
       ],
     ],
     B2: [
@@ -249,6 +435,32 @@ const bank: Record<AssessedSkill, Partial<Record<Level, Entry[]>>> = {
         "Evaluate limitations in evidence",
         "A company survey found strong support for flexible hours. Participation was voluntary, and responses came mainly from office-based teams. The report recommends a pilot rather than an immediate company-wide change, noting that shift workers' preferences remain unclear.",
       ],
+      [
+        "Which statement best summarises the passage?",
+        [
+          "The fee caused visitor numbers to collapse",
+          "The fee had mostly modest effects, both positive and negative",
+          "Local residents now visit more often",
+          "Free school visits were cancelled",
+        ],
+        1,
+        "Attendance fell only slightly and the fee funded improvements, but some residents visit less.",
+        "Summarise a text with contrasting outcomes",
+        "When the museum announced it would charge an entry fee for the first time, critics predicted visitor numbers would collapse. Instead, attendance dipped only slightly, while income from the fee funded longer opening hours and free school visits. Some local residents, however, say they now visit less often.",
+      ],
+      [
+        "In the passage, 'a double-edged sword' means something that ___.",
+        [
+          "is dangerous to use",
+          "has both advantages and disadvantages",
+          "is extremely expensive",
+          "must be replaced quickly",
+        ],
+        1,
+        "The writer lists a benefit (reaching customers) and a cost (pressure to reply at all hours).",
+        "Interpret figurative language from context",
+        "For small businesses, social media is a double-edged sword. It allows a local bakery to reach thousands of potential customers at almost no cost, yet it also creates pressure to reply to messages at all hours and to respond publicly to every complaint.",
+      ],
     ],
   },
 };
@@ -257,17 +469,21 @@ export const questions: AssessmentQuestion[] = Object.entries(bank).flatMap(
   ([skill, byLevel]) =>
     Object.entries(byLevel).flatMap(([level, entries]) =>
       entries.map(
-        ([prompt, options, correct, explanation, objective, passage], i) => ({
-          id: `${skill}-${level}-${i + 1}`,
-          skill: skill as AssessedSkill,
-          level: level as Level,
-          prompt,
-          options,
-          correct,
-          explanation,
-          objective,
-          passage,
-        }),
+        ([prompt, options, correct, explanation, objective, passage], i) => {
+          const id = `${skill}-${level}-${i + 1}`;
+          return {
+            id,
+            skill: skill as AssessedSkill,
+            level: level as Level,
+            prompt,
+            options,
+            correct,
+            explanation,
+            objective,
+            passage,
+            thai: questionThai[id],
+          };
+        },
       ),
     ),
 );

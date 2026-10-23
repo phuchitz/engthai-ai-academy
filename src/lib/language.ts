@@ -178,6 +178,25 @@ export const thaiMessages: Record<string, string> = {
   "See my results": "ดูผลประเมิน",
   "Choose your answer": "เลือกคำตอบ",
   "Saved only in this browser": "บันทึกเฉพาะเบราว์เซอร์นี้",
+  "Show Thai help": "ดูคำอธิบายโจทย์ภาษาไทย",
+  "Word topic": "หมวดคำศัพท์",
+  "All topics": "ทุกหมวด",
+  New: "คำใหม่",
+  "Ready to review": "ถึงเวลาทบทวน",
+  "A NEW WORD FOR YOU": "คำศัพท์ใหม่สำหรับคุณ",
+  "TIME TO REVIEW": "ถึงเวลาทบทวน",
+  "Say the word aloud, then reveal its meaning.":
+    "ลองออกเสียงคำนี้ แล้วกดดูความหมาย",
+  "Hear the example sentence": "ฟังประโยคตัวอย่าง",
+  "You've met today's new words. Come back tomorrow for more, or review again when words are due.":
+    "วันนี้เรียนคำใหม่ครบแล้ว พรุ่งนี้กลับมาเรียนคำใหม่เพิ่ม หรือทบทวนเมื่อถึงกำหนด",
+  Tomorrow: "พรุ่งนี้",
+  "Speech playback is unavailable in this browser. You can still read the pronunciation guide.":
+    "เบราว์เซอร์นี้เล่นเสียงไม่ได้ แต่ยังอ่านคำอ่านที่เขียนไว้ได้",
+  "Audio couldn't play. Try again, or use the written pronunciation guide.":
+    "เล่นเสียงไม่สำเร็จ ลองอีกครั้ง หรือดูคำอ่านที่เขียนไว้",
+  "Thai help explains the task only. Answer choices and reading passages stay in English.":
+    "คำอธิบายนี้บอกเฉพาะว่าโจทย์ถามอะไร ตัวเลือกและบทอ่านยังเป็นภาษาอังกฤษ",
   "Your starting point is ready.": "ทำแบบประเมินเสร็จแล้ว",
   "View my results": "ดูผลประเมินของฉัน",
   "Start a fresh check": "เริ่มประเมินใหม่",

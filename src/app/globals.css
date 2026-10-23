@@ -1442,6 +1442,27 @@ progress::-moz-progress-bar {
   gap: 7px;
   font-size: 10px;
 }
+.thai-hint {
+  margin: -6px 0 18px;
+  font-size: 14px;
+}
+.thai-hint summary {
+  cursor: pointer;
+  color: var(--primary-dark);
+  font-weight: 600;
+  width: fit-content;
+}
+.thai-hint p {
+  margin: 10px 0 6px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--lavender);
+  line-height: 1.8;
+}
+.thai-hint small {
+  display: block;
+  font-size: 12px;
+}
 .reading-passage {
   border-left: 3px solid #c4b2db;
   margin: 15px 0 25px;
@@ -1662,6 +1683,86 @@ progress::-moz-progress-bar {
 .flashcard .privacy-note {
   font-size: 10px;
   margin: 25px 0 0;
+}
+.topic-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.topic-chip {
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12px;
+  cursor: pointer;
+}
+.topic-chip[aria-pressed="true"] {
+  background: var(--lavender);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+.flashcard-tags {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+.flashcard-tags .skill-pill,
+.vocabulary-toolbar .skill-pill {
+  text-transform: none;
+}
+.inline-sound {
+  display: inline-grid;
+  place-items: center;
+  vertical-align: middle;
+  margin-left: 6px;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background: var(--lavender);
+  color: var(--primary);
+}
+.example-thai {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 14px;
+}
+.word-list {
+  max-width: 650px;
+  margin: 0 auto 30px;
+  padding: 18px 22px;
+}
+.word-list summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.word-list ul {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+.word-list li {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) minmax(110px, 1.3fr) auto;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+@media (max-width: 560px) {
+  .word-list li {
+    grid-template-columns: 1fr 1fr;
+  }
+  .word-list li .muted {
+    grid-column: 1 / -1;
+  }
 }
 .activity-chart {
   display: flex;

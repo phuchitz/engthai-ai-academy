@@ -58,6 +58,8 @@ export interface AssessmentQuestion {
   level: Level;
   prompt: string;
   passage?: string;
+  /** Thai task help that explains the question without revealing the answer. */
+  thai?: string;
   options: [string, string, string, string];
   correct: number;
   explanation: string;
@@ -119,18 +121,23 @@ export const lessonAttemptSchema = z.object({
   xp: z.number().int().min(0).max(100),
 });
 export type LessonAttempt = z.infer<typeof lessonAttemptSchema>;
+export type Topic = (typeof topics)[number];
 export interface VocabularyItem {
   id: string;
   word: string;
   thai: string;
   example: string;
+  exampleThai: string;
   pronunciation: string;
+  level: Level;
+  topic: Topic;
 }
 export const vocabularyReviewSchema = z.object({
   itemId: z.string().max(80),
   due: z.iso.datetime(),
   intervalDays: z.number().int().min(1).max(180),
   repetitions: z.number().int().nonnegative(),
+  introducedAt: z.iso.datetime().optional(),
 });
 export type VocabularyReview = z.infer<typeof vocabularyReviewSchema>;
 export interface DailyProgress {

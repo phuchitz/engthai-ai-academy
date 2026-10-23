@@ -45,6 +45,7 @@ describe("adaptive preliminary assessment", () => {
     });
     const answers = questions
       .filter((q) => q.skill === "grammar" && q.level === "B2")
+      .slice(0, 2)
       .map((q) => ({ questionId: q.id, option: q.correct }));
     expect(scoreAssessment(answers).evaluations[0].level).toBeNull();
     expect(scoreAssessment(answers).estimatedLevel).toBeNull();
