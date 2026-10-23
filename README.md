@@ -29,6 +29,8 @@ References: [Auth.js Google setup](https://authjs.dev/getting-started/providers/
 
 ## Implemented iteration
 
+- Login is the first screen at `/`; signed-in learners continue to `/learn`. The original introduction remains at `/welcome`.
+- Thai is the default interface language, with persistent TH/EN controls on login and the learner workspace. See [language behavior and scope](docs/LOGIN-LANGUAGE.md).
 - Welcome, login/setup errors, onboarding with multiple goals, and a private learner area.
 - Adaptive 18-item preliminary grammar/vocabulary/reading check, resumable answers, skill results, limitations, and reassessment.
 - Learning dashboard with explanations for lesson selection, six foundation lessons, correct-answer completion criteria, XP without duplicate awards, and Bangkok-calendar streaks.

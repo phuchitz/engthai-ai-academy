@@ -1,5 +1,16 @@
 import { test, expect } from "@playwright/test";
 
+test.beforeEach(async ({ context }) => {
+  await context.addCookies([
+    {
+      name: "engthai-language",
+      value: "en",
+      url: "http://localhost:3000",
+      sameSite: "Lax",
+    },
+  ]);
+});
+
 test("demo learner can onboard, finish a skills check, complete a lesson, and reload progress", async ({
   page,
 }) => {
@@ -89,6 +100,7 @@ test("public screens fit the viewport and theme, navigation and vocabulary work"
   for (const route of [
     "/",
     "/login",
+    "/welcome",
     "/demo",
     "/demo/lessons",
     "/demo/grammar",
@@ -109,7 +121,7 @@ test("public screens fit the viewport and theme, navigation and vocabulary work"
         path: `docs/screenshots/dashboard-${isMobile ? "mobile" : "desktop"}.png`,
         fullPage: true,
       });
-    if (route === "/")
+    if (route === "/welcome")
       await page.screenshot({
         path: `docs/screenshots/welcome-${isMobile ? "mobile" : "desktop"}.png`,
         fullPage: true,
@@ -117,9 +129,13 @@ test("public screens fit the viewport and theme, navigation and vocabulary work"
   }
   await page.goto("/demo/vocabulary");
   await page.getByRole("button", { name: "Reveal meaning" }).click();
-  await expect(page.getByText("มั่นใจ", { exact: true })).toBeVisible();
+  await expect(page.locator(".flashcard .translation")).toHaveText("ยืม");
+  await expect(page.getByText("0 to review · 10 new")).toBeVisible();
   await page.getByRole("button", { name: "I remembered" }).click();
-  await expect(page.getByText("4 words ready to review")).toBeVisible();
+  await expect(page.getByText("0 to review · 9 new")).toBeVisible();
+  await expect(
+    page.getByText("1/10 new words today", { exact: false }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "Switch to dark theme" }).click();
   await expect(page.locator(".academy")).toHaveClass(/dark/);
   await page.reload();

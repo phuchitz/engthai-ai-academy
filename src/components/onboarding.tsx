@@ -1,4 +1,5 @@
 "use client";
+import { useLanguage } from "./language";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
@@ -19,6 +20,7 @@ export function Onboarding({
   onSave: (preferences: UserPreferences) => void;
   settings?: boolean;
 }) {
+  const { t } = useLanguage();
   const Heading = settings ? "h2" : "h1";
   const {
     register,
@@ -38,25 +40,25 @@ export function Onboarding({
   return (
     <section className="onboarding card">
       <span className="eyebrow">
-        <Sparkles size={16} /> YOUR JOURNEY, YOUR WAY
+        <Sparkles size={16} /> {t("YOUR JOURNEY, YOUR WAY")}
       </span>
       <Heading>
         {settings
-          ? "Make this space yours."
-          : "Let's make English work for you."}
+          ? t("Make this space yours.")
+          : t("Let's make English work for you.")}
       </Heading>
       <p className="muted">
-        A few little details help us shape your learning journey.{" "}
+        {t("A few little details help us shape your learning journey.")}{" "}
         <span lang="th">เริ่มต้นในแบบของคุณ</span>
       </p>
       <form onSubmit={handleSubmit(onSave)} noValidate>
         <label className="field-label" htmlFor="displayName">
-          What should we call you?
+          {t("What should we call you?")}
         </label>
         <input
           id="displayName"
           autoComplete="given-name"
-          placeholder="Your preferred name"
+          placeholder={t("Your preferred name")}
           maxLength={50}
           {...register("displayName")}
           aria-invalid={!!errors.displayName}
@@ -64,30 +66,30 @@ export function Onboarding({
         />
         {errors.displayName && (
           <p id="name-error" role="alert" className="field-error">
-            {errors.displayName.message}
+            {t(errors.displayName.message ?? "")}
           </p>
         )}
         <fieldset>
           <legend>
-            What would you like to do with English?{" "}
-            <small>Choose as many as you like.</small>
+            {t("What would you like to do with English?")}{" "}
+            <small>{t("Choose as many as you like.")}</small>
           </legend>
           <div className="choice-grid">
             {goals.map((goal) => (
               <label className="choice" key={goal}>
                 <input type="checkbox" value={goal} {...register("goals")} />
-                <span>{goal}</span>
+                <span>{t(goal)}</span>
               </label>
             ))}
           </div>
           {errors.goals && (
             <p role="alert" className="field-error">
-              {errors.goals.message}
+              {t(errors.goals.message ?? "")}
             </p>
           )}
         </fieldset>
         <fieldset>
-          <legend>A little time, every day</legend>
+          <legend>{t("A little time, every day")}</legend>
           <Controller
             name="dailyMinutes"
             control={control}
@@ -106,7 +108,7 @@ export function Onboarding({
                       value={minutes}
                     />
                     <strong>{minutes}</strong>
-                    <span>min / day</span>
+                    <span>{t("min / day")}</span>
                   </label>
                 ))}
               </div>
@@ -114,48 +116,51 @@ export function Onboarding({
           />
         </fieldset>
         <fieldset>
-          <legend>What sparks your interest?</legend>
+          <legend>{t("What sparks your interest?")}</legend>
           <div className="choice-grid">
             {topics.map((topic) => (
               <label className="choice" key={topic}>
                 <input type="checkbox" value={topic} {...register("topics")} />
-                <span>{topic}</span>
+                <span>{t(topic)}</span>
               </label>
             ))}
           </div>
           {errors.topics && (
             <p role="alert" className="field-error">
-              {errors.topics.message}
+              {t(errors.topics.message ?? "")}
             </p>
           )}
         </fieldset>
         <label className="field-label" htmlFor="motivation">
-          Your reason to keep going <small>Optional</small>
+          {t("Your reason to keep going")}
+          <small>{t("Optional")}</small>
         </label>
         <textarea
           id="motivation"
           maxLength={300}
-          placeholder="I'd love to feel more confident in meetings…"
+          placeholder={t("I'd love to feel more confident in meetings…")}
           rows={3}
           {...register("motivation")}
         />
         {errors.motivation && (
           <p role="alert" className="field-error">
-            {errors.motivation.message}
+            {t(errors.motivation.message ?? "")}
           </p>
         )}
         <p className="privacy-note">
-          Your preferences and learning progress are saved only in this browser.
-          They do not sync across devices.
+          {t(
+            "Your preferences and learning progress are saved only in this browser. They do not sync across devices.",
+          )}
         </p>
         <Button type="submit">
           {settings ? (
             <>
-              <Check size={17} /> Save preferences
+              <Check size={17} /> {t("Save preferences")}
             </>
           ) : (
             <>
-              Find my starting point <ArrowRight size={17} />
+              {t("Find my starting point")}
+              <ArrowRight size={17} />
             </>
           )}
         </Button>

@@ -1,4 +1,6 @@
 "use client";
+import { useLanguage } from "./language";
+
 import { useState } from "react";
 import { ArrowDownToLine, ShieldCheck } from "lucide-react";
 import type { LearnerState, UserPreferences } from "@/lib/models";
@@ -16,6 +18,7 @@ export function Settings({
   onReset: () => void;
   demo: boolean;
 }) {
+  const { t } = useLanguage();
   const [resetting, setResetting] = useState(false);
   const [exportIssue, setExportIssue] = useState("");
   function exportData() {
@@ -46,24 +49,23 @@ export function Settings({
       />
       <section className="card settings-data">
         <span className="eyebrow">
-          <ShieldCheck size={16} /> YOUR DATA
+          <ShieldCheck size={16} /> {t("YOUR DATA")}
         </span>
-        <h2>Saved here, in your browser.</h2>
+        <h2>{t("Saved here, in your browser.")}</h2>
         <p className="muted">
           {demo
-            ? "Demo progress is stored separately from signed-in accounts. "
-            : "Learning progress is separated by account on this browser. "}
-          It does not sync between devices. Clearing browser data, private
-          browsing, or changing devices can lose progress. Anyone with access to
-          this browser profile may be able to read browser-local learning data.
-          Avoid writing sensitive information in your preferences.
+            ? t("Demo progress is stored separately from signed-in accounts. ")
+            : t("Learning progress is separated by account on this browser. ")}
+          {t(
+            "It does not sync between devices. Clearing browser data, private browsing, or changing devices can lose progress. Anyone with access to this browser profile may be able to read browser-local learning data. Avoid writing sensitive information in your preferences.",
+          )}
         </p>
         <div className="button-row">
           <Button variant="secondary" onClick={exportData}>
-            <ArrowDownToLine size={16} /> Export my progress
+            <ArrowDownToLine size={16} /> {t("Export my progress")}
           </Button>
           <Button variant="ghost" onClick={() => setResetting(!resetting)}>
-            Reset browser progress
+            {t("Reset browser progress")}
           </Button>
         </div>
         {exportIssue && <p role="alert">{exportIssue}</p>}
@@ -71,11 +73,12 @@ export function Settings({
           <div className="info-box reset-box">
             <div>
               <strong>
-                Remove this account&apos;s saved learning progress?
+                {t("Remove this account's saved learning progress?")}
               </strong>
               <p>
-                This clears preferences, answers, lessons, and reviews from this
-                browser. Export first if you want a copy.
+                {t(
+                  "This clears preferences, answers, lessons, and reviews from this browser. Export first if you want a copy.",
+                )}
               </p>
               <div className="button-row">
                 <Button
@@ -84,10 +87,10 @@ export function Settings({
                     setResetting(false);
                   }}
                 >
-                  Yes, reset my progress
+                  {t("Yes, reset my progress")}
                 </Button>
                 <Button variant="secondary" onClick={() => setResetting(false)}>
-                  Keep my progress
+                  {t("Keep my progress")}
                 </Button>
               </div>
             </div>

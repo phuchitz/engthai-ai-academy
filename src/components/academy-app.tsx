@@ -1,4 +1,5 @@
 "use client";
+import { LanguageSwitcher, useLanguage } from "./language";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,6 +10,7 @@ import {
   ChevronRight,
   Clock3,
   GraduationCap,
+  Headphones,
   House,
   Leaf,
   LogOut,
@@ -41,6 +43,7 @@ import { LessonPlayer, Vocabulary } from "./practice";
 import { Progress } from "./progress";
 import { Settings } from "./settings";
 import { Tutor } from "./tutor";
+import { ListenSpeak } from "./listen-speak";
 
 const navigation = [
   { screen: "dashboard", label: "My learning", icon: House },
@@ -48,11 +51,13 @@ const navigation = [
   { screen: "vocabulary", label: "Vocabulary", icon: GraduationCap },
   { screen: "grammar", label: "Grammar studio", icon: AudioLines },
   { screen: "tutor", label: "AI tutor", icon: MessageCircle },
+  { screen: "listen-speak", label: "Listen & speak", icon: Headphones },
   { screen: "progress", label: "My progress", icon: TrendingUp },
 ];
 
 type Props = { screen: string; accountId: string; name: string; demo: boolean };
 export function AcademyApp({ screen, accountId, name, demo }: Props) {
+  const { t, language } = useLanguage();
   const router = useRouter();
   const base = demo ? "/demo" : "/learn";
   const [state, setState] = useState<LearnerState | null>(null);
@@ -132,9 +137,10 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
     ? scoreAssessment(state.assessment.answers)
     : null;
   const displayName =
-    state?.preferences?.displayName || (demo ? "friend" : name.split(" ")[0]);
+    state?.preferences?.displayName ||
+    (demo ? (language === "th" ? "คุณ" : "friend") : name.split(" ")[0]);
   const currentTitle = screen.startsWith("lesson/")
-    ? "Daily lessons"
+    ? t("Daily lessons")
     : (navigation.find((item) => item.screen === screen)?.label ??
       ({
         assessment: "Placement check",
@@ -146,10 +152,11 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
   const greeting = (
     <>
       <span className="eyebrow">
-        A LITTLE PRACTICE. A WORLD OF POSSIBILITIES.
+        {t("A LITTLE PRACTICE. A WORLD OF POSSIBILITIES.")}
       </span>
       <h1>
-        Your next chapter starts here<span className="lavender-text">.</span>
+        {t("Your next chapter starts here")}
+        <span className="lavender-text">.</span>
       </h1>
     </>
   );
@@ -169,7 +176,7 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
       {menuOpen && (
         <button
           className="nav-scrim"
-          aria-label="Close navigation"
+          aria-label={t("Close navigation")}
           onClick={() => setMenuOpen(false)}
         />
       )}
@@ -177,17 +184,17 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
         className={`sidebar ${menuOpen ? "open" : ""}`}
         aria-label="Main navigation"
       >
-        <Link className="brand-link" href="/" aria-label="EngThai home">
+        <Link className="brand-link" href="/" aria-label={t("EngThai home")}>
           <Brand />
         </Link>
         <button
           className="mobile-close icon-button"
-          aria-label="Close navigation"
+          aria-label={t("Close navigation")}
           onClick={() => setMenuOpen(false)}
         >
           <X size={20} />
         </button>
-        <div className="workspace-label">YOUR LEARNING SPACE</div>
+        <div className="workspace-label">{t("YOUR LEARNING SPACE")}</div>
         <nav>
           {navigation.map(({ screen: destination, label, icon: Icon }) => (
             <Link
@@ -203,8 +210,7 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
               className="nav-item"
             >
               <Icon size={19} strokeWidth={1.7} />
-              <span>{label}</span>
-              {destination === "tutor" && <span className="nav-tag">SOON</span>}
+              <span>{t(label)}</span>
             </Link>
           ))}
         </nav>
@@ -213,8 +219,8 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
           <span className="note-icon">
             <Sprout size={26} />
           </span>
-          <strong>Small steps, real growth.</strong>
-          <p>You&apos;re closer than you were yesterday.</p>
+          <strong>{t("Small steps, real growth.")}</strong>
+          <p>{t("You're closer than you were yesterday.")}</p>
           <span lang="th">เก่งขึ้นได้ทุกวัน</span>
         </div>
         <Link
@@ -223,16 +229,16 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
           className="nav-item"
           aria-current={screen === "settings" ? "page" : undefined}
         >
-          <Settings2 size={19} /> Settings & profile
+          <Settings2 size={19} /> {t("Settings & profile")}
         </Link>
         {demo ? (
           <Link href="/login" className="nav-item">
-            <LogOut size={18} /> Sign in with Google
+            <LogOut size={18} /> {t("Sign in with Google")}
           </Link>
         ) : (
           <form action={googleSignOut}>
             <button className="nav-item">
-              <LogOut size={18} /> Sign out
+              <LogOut size={18} /> {t("Sign out")}
             </button>
           </form>
         )}
@@ -242,8 +248,8 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
             <strong>{displayName}</strong>
             <small>
               {demo
-                ? "Exploring the public demo"
-                : "Your personal learning journey"}
+                ? t("Exploring the public demo")
+                : t("Your personal learning journey")}
             </small>
           </span>
           <span className="online-dot" />
@@ -254,25 +260,26 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
           <div className="breadcrumb">
             <button
               className="icon-button mobile-menu"
-              aria-label="Open navigation"
+              aria-label={t("Open navigation")}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen(true)}
             >
               <Menu size={22} />
             </button>
-            <span>My academy</span>
+            <span>{t("My academy")}</span>
             <ChevronRight size={14} />
-            <strong>{currentTitle}</strong>
+            <strong>{t(currentTitle)}</strong>
           </div>
           <div className="topbar-actions">
+            <LanguageSwitcher />
             <span className="local-pill">
               <ShieldCheck size={14} />{" "}
-              {demo ? "Public demo" : "Private learning space"}
+              {demo ? t("Public demo") : t("Private learning space")}
             </span>
             <button
               className="icon-button"
               aria-label={
-                dark ? "Switch to light theme" : "Switch to dark theme"
+                dark ? t("Switch to light theme") : t("Switch to dark theme")
               }
               onClick={theme}
             >
@@ -281,7 +288,7 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
             <Link
               href={href("settings")}
               className="avatar small"
-              aria-label="Open your profile"
+              aria-label={t("Open your profile")}
             >
               {displayName.charAt(0).toUpperCase()}
             </Link>
@@ -291,24 +298,28 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
           {demo && (
             <div className="demo-banner">
               <span>
-                <Sparkles size={14} /> You&apos;re exploring the demo. Progress
-                stays in this browser, separate from signed-in accounts.
+                <Sparkles size={14} />{" "}
+                {t(
+                  "You're exploring the demo. Progress stays in this browser, separate from signed-in accounts.",
+                )}
               </span>
               <Link href="/login">
-                Make it yours <ArrowRight size={13} />
+                {t("Make it yours")}
+                <ArrowRight size={13} />
               </Link>
             </div>
           )}
           {issue && (
             <div role="alert" className="alert error">
-              {issue} <Link href={href("settings")}>Open Settings</Link>
+              {t(issue)}{" "}
+              <Link href={href("settings")}>{t("Open Settings")}</Link>
             </div>
           )}
           {notice && (
             <div role="status" className="alert success">
-              {notice}
+              {t(notice)}
               <button
-                aria-label="Dismiss notification"
+                aria-label={t("Dismiss notification")}
                 onClick={() => setNotice("")}
               >
                 <X size={16} />
@@ -318,7 +329,7 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
           {!state ? (
             <div className="loading-state" role="status">
               <span className="loading-dot" />
-              <p>Opening your learning space…</p>
+              <p>{t("Opening your learning space…")}</p>
             </div>
           ) : (
             <>
@@ -335,18 +346,20 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                       <div className="page-heading">
                         <div>
                           <div className="greeting">
-                            Hello, {displayName}{" "}
-                            <span aria-hidden="true">☀</span>
+                            {language === "th" ? "สวัสดี " : "Hello, "}
+                            {displayName} <span aria-hidden="true">☀</span>
                           </div>
                           {greeting}
                           <p className="muted">
-                            A little English today. A more confident you
-                            tomorrow. <span lang="th">มาเรียนรู้ไปด้วยกัน</span>
+                            {t(
+                              "A little English today. A more confident you tomorrow.",
+                            )}
+                            <span lang="th">มาเรียนรู้ไปด้วยกัน</span>
                           </p>
                         </div>
                         <div className="today-chip">
-                          <span className="mint-dot" /> YOUR PACE. YOUR
-                          PROGRESS.
+                          <span className="mint-dot" />{" "}
+                          {t("YOUR PACE. YOUR PROGRESS.")}
                         </div>
                       </div>
                       <div className="dashboard-grid">
@@ -354,17 +367,24 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                           <section className="learning-hero">
                             <div className="hero-copy">
                               <span className="hero-label">
-                                <Sparkles size={14} /> MADE FOR YOUR JOURNEY
+                                <Sparkles size={14} />{" "}
+                                {t("MADE FOR YOUR JOURNEY")}
                               </span>
                               <h2>
                                 {state.preferences
-                                  ? "Keep your curiosity.\nGrow your confidence."
-                                  : "English for your world.\nStart with a small step."}
+                                  ? t(
+                                      "Keep your curiosity.\nGrow your confidence.",
+                                    )
+                                  : t(
+                                      "English for your world.\nStart with a small step.",
+                                    )}
                               </h2>
                               <p>
                                 {result
-                                  ? buildLearningPath(result, state).reason
-                                  : "Discover your starting point and build a learning path that feels like you."}
+                                  ? t(buildLearningPath(result, state).reason)
+                                  : t(
+                                      "Discover your starting point and build a learning path that feels like you.",
+                                    )}
                               </p>
                               <Link
                                 className={buttonVariants()}
@@ -377,14 +397,15 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                                 )}
                               >
                                 {!state.preferences
-                                  ? "Start my journey"
-                                  : "Continue Learning"}
+                                  ? t("Start my journey")
+                                  : t("Continue Learning")}
                                 <ArrowRight size={17} />
                               </Link>
                               <div className="hero-footnote">
-                                <Clock3 size={13} /> Just{" "}
-                                {state.preferences?.dailyMinutes ?? 15} minutes
-                                for a little growth
+                                <Clock3 size={13} />{" "}
+                                {language === "th"
+                                  ? `วันละ ${state.preferences?.dailyMinutes ?? 15} นาที ก็พัฒนาได้`
+                                  : `Just ${state.preferences?.dailyMinutes ?? 15} minutes for a little growth`}
                               </div>
                             </div>
                             <BookIllustration />
@@ -393,16 +414,19 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                           <section className="section-block">
                             <div className="section-heading">
                               <div>
-                                <h2>Your daily learning path</h2>
+                                <h2>{t("Your daily learning path")}</h2>
                                 <p className="muted">
-                                  A thoughtful mix of practice, picked for you.
+                                  {t(
+                                    "A thoughtful mix of practice, picked for you.",
+                                  )}
                                 </p>
                               </div>
                               <Link
                                 href={href("lessons")}
                                 className="text-link"
                               >
-                                View all <ArrowRight size={15} />
+                                {t("View all")}
+                                <ArrowRight size={15} />
                               </Link>
                             </div>
                             <div className="lesson-list">
@@ -427,11 +451,12 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                             </span>
                             <div>
                               <strong>
-                                Consistency feels better than perfection.
+                                {t("Consistency feels better than perfection.")}
                               </strong>
                               <p>
-                                One lesson is one step forward. You&apos;ve got
-                                this.
+                                {t(
+                                  "One lesson is one step forward. You've got this.",
+                                )}
                               </p>
                             </div>
                             <span aria-hidden="true">✦</span>
@@ -446,10 +471,11 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                           <DailyGoal state={state} />
                           <section className="word-preview card">
                             <div className="card-eyebrow">
-                              A WORD TO TAKE WITH YOU <Sprout size={16} />
+                              {t("A WORD TO TAKE WITH YOU")}
+                              <Sprout size={16} />
                             </div>
                             <h3>
-                              confident <span>adjective</span>
+                              confident <span>{t("adjective")}</span>
                             </h3>
                             <p lang="th">มั่นใจ</p>
                             <blockquote>
@@ -461,7 +487,8 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                               className="text-link"
                               href={href("vocabulary")}
                             >
-                              Explore vocabulary <ArrowRight size={15} />
+                              {t("Explore vocabulary")}
+                              <ArrowRight size={15} />
                             </Link>
                           </section>
                         </div>
@@ -483,17 +510,19 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                       <PageHeading
                         eyebrow={
                           screen === "grammar"
-                            ? "GRAMMAR STUDIO"
-                            : "A LITTLE BETTER, EVERY DAY"
+                            ? t("GRAMMAR STUDIO")
+                            : t("A LITTLE BETTER, EVERY DAY")
                         }
                         title={
                           screen === "grammar"
-                            ? "Make the pieces click."
-                            : "Your next small step."
+                            ? t("Make the pieces click.")
+                            : t("Your next small step.")
                         }
                         description={
                           screen === "grammar"
-                            ? "Clear explanations. Thai support. Useful practice."
+                            ? t(
+                                "Clear explanations. Thai support. Useful practice.",
+                              )
                             : buildLearningPath(result, state).reason
                         }
                       />
@@ -516,8 +545,9 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                         ))}
                       </div>
                       <p className="privacy-note">
-                        Foundation practice · These short exercises support
-                        learning, rather than certify mastery of a CEFR level.
+                        {t(
+                          "Foundation practice · These short exercises support learning, rather than certify mastery of a CEFR level.",
+                        )}
                       </p>
                     </>
                   )}
@@ -556,13 +586,22 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
                   {screen === "progress" && (
                     <Progress state={state} base={base} />
                   )}
-                  {screen === "tutor" && <Tutor base={base} />}
+                  {screen === "tutor" && (
+                    <Tutor
+                      base={base}
+                      demo={demo}
+                      level={result?.estimatedLevel ?? null}
+                    />
+                  )}
+                  {screen === "listen-speak" && <ListenSpeak />}
                   {screen === "settings" && (
                     <>
                       <PageHeading
-                        eyebrow="MAKE YOURSELF AT HOME"
-                        title="Your learning, your way."
-                        description="Your preferences, your privacy, and a little room to grow."
+                        eyebrow={t("MAKE YOURSELF AT HOME")}
+                        title={t("Your learning, your way.")}
+                        description={t(
+                          "Your preferences, your privacy, and a little room to grow.",
+                        )}
                       />
                       <Settings
                         state={state}
@@ -592,11 +631,11 @@ export function AcademyApp({ screen, accountId, name, demo }: Props) {
           )}
           <footer className="workspace-footer">
             <span>
-              Made for your next chapter.{" "}
+              {t("Made for your next chapter.")}{" "}
               <span lang="th">เรียนรู้ทีละนิด เติบโตทุกวัน</span>
             </span>
             <span>
-              <Leaf size={12} /> Learning at your own pace
+              <Leaf size={12} /> {t("Learning at your own pace")}
             </span>
           </footer>
         </main>

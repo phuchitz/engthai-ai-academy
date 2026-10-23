@@ -31,6 +31,8 @@ Each lesson includes an objective, estimated time, explanation, Thai support, ex
 
 Review scheduling doubles remembered-word intervals, capped at 180 days, and schedules forgotten words for the next day. It is a simple documented MVP heuristic, not a validated memory model. Browser text-to-speech depends on installed voices and provides playback only.
 
+The vocabulary deck (`src/lib/vocabulary.ts`) has 48 author-written words across the six onboarding topics, each with Thai meaning, example, and Thai example. The queue shows due reviews first, then unseen words from the learner's onboarding topics, limited to ten new words per Bangkok calendar day across all topics. A review records when its word was first introduced; reviews saved before this field existed do not count toward the daily limit. Deck words avoid placement-check answer words so practice does not inflate a retake; `reliable` and `remind` are older exceptions.
+
 ## PWA and caching
 
 The worker caches an explicit allowlist: offline HTML, the logo, and app icons. It never writes route HTML, RSC payloads, session responses, assessment state, or API responses to Cache Storage. Navigation uses the network and falls back to public offline HTML on network failure. A cached application shell is intentionally absent; lessons and Google sign-in require connectivity. Browser-local saved data is retained offline.
@@ -39,9 +41,23 @@ Protected pages and API routes receive no-store headers. The service worker itse
 
 ## AI boundary and future backend
 
-There are no AI calls or simulated responses. The AI page identifies unavailable features. `AIGateway` and response schemas reserve a server-side boundary for tutor/examiner calls. Implement authentication, bounded inputs, structured validation, timeouts, persistent rate limits, provider budgets, prompt-injection handling, and evidence review before enabling an endpoint. Never base pronunciation scoring on transcription alone.
+The AI tutor calls Claude (`claude-opus-5-5`) only from `POST /api/tutor` (`src/lib/ai-server.ts`), using the server-only `ANTHROPIC_API_KEY`. Without the key the tutor page says it is not configured; nothing is simulated. It has three modes: ask a question, writing feedback, and scenario role-play (cafe, hotel, stand-up, interview). Each mode has a Zod output schema enforced through structured outputs, and results are length-clipped after parsing. The route requires a signed-in session, rejects cross-origin posts, validates input with `tutorRequestSchema` (1,200 characters per message, 12 conversation turns), and allows 30 requests per account per Bangkok day and 6 per minute. Requests use low effort, a 4,000-token output cap, a 40-second timeout with one retry, and the API's default server-side fallback model when a request is declined. Provider failures map to typed error codes. Only token counts are logged, never learner text or model output.
 
-Java 21, Spring Boot, PostgreSQL, Flyway, and optional Redis remain future infrastructure. No backend is introduced until durable multi-user storage or authenticated AI calls justify it.
+Learner text is wrapped in tags, and the system prompt tells the model to treat it as practice material, not instructions. Feedback is labelled as fallible practice support, not an assessment score or CEFR level. The public demo does not call the AI.
+
+Known limits: the usage limiter is in-memory per server instance, so serverless instances each keep their own counts. Move it to a shared store such as Redis before treating it as a hard budget control, and set a spend limit in the Anthropic Console as well. Conversation history lives only in the page and is not saved. The CEFR Examiner and Learning Coach roles are not implemented yet. Never base pronunciation scoring on transcription alone.
+
+There is no separate backend service. Server work (Auth.js, AI gateway, validation, rate limiting, scheduled jobs) runs in Next.js Route Handlers and Server Actions. Durable storage will be managed PostgreSQL behind `ProgressRepository`, with schema migrations, once multi-user or cross-device persistence is needed; Redis is added only for justified rate limiting. This replaces the earlier Java 21/Spring Boot plan.
+
+Keep scoring, scheduling, and lesson selection as framework-free pure functions so a separate service could replace an implementation later without UI changes. Revisit a separate backend only for native or other clients sharing the API, work beyond serverless execution limits, persistent WebSocket connections, or cost at scale.
+
+Speaking practice is phased: push-to-talk turns through a Next.js route (STT, model, TTS) first; then real-time sessions where the server mints a short-lived provider token with server-set instructions and limits and the browser connects directly; and only if that proves insufficient, a small Go voice relay service.
+
+## Listening and speaking (browser speech)
+
+`Listen & speak` (`src/components/listen-speak.tsx`) uses only browser speech APIs. Listening plays six short author-written scripts (A1–B1) through `speechSynthesis` at normal or slow speed, asks one comprehension question, and reveals the transcript after the answer. Speaking asks the learner to read six sentences aloud and uses the browser's `SpeechRecognition` (push-to-talk, `en-US`). `compareWords` then marks which target words appear in the transcript. The AI tutor's conversation mode can also dictate replies.
+
+These are practice aids, not assessments. Voice quality depends on the device. Recognition is unavailable in some browsers (for example Firefox), and the UI says so. Chrome sends recognition audio to Google, which the page discloses; EngThai itself neither records nor stores audio. Word matching shows what the recognizer understood, not pronunciation quality, so listening, speaking, and pronunciation remain **Not assessed** in the placement results. Results are not saved yet. `Permissions-Policy` allows the microphone for this origin only (`microphone=(self)`); the camera and geolocation stay disabled. Rubric-based speaking evaluation and pronunciation scoring need an audio-based assessment service and are future work.
 
 ## Accessibility and visual design
 

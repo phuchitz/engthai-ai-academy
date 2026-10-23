@@ -1,10 +1,13 @@
 @import "tailwindcss";
+@import "./fonts.css";
 
 @theme inline {
-  --font-sans:
-    "Inter", "Noto Sans Thai", "Leelawadee UI", "Segoe UI", sans-serif;
+  --font-sans: var(--font-body);
 }
 :root {
+  --font-heading:
+    "LINE Seed Thai", "Noto Sans Thai", "Leelawadee UI", "Segoe UI", sans-serif;
+  --font-body: "Noto Sans Thai", "Leelawadee UI", "Segoe UI", sans-serif;
   --bg: #f8f9fc;
   --surface: #fff;
   --ink: #302b41;
@@ -119,6 +122,33 @@ h3 {
   line-height: 1.45;
   font-weight: 650;
   margin-bottom: 5px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+.button,
+nav,
+label,
+legend,
+.brand,
+.eyebrow,
+.card-eyebrow,
+.step-label,
+.field-label,
+.lesson-meta,
+.xp-badge,
+.stat-card,
+.text-link {
+  font-family: var(--font-heading);
+}
+.answer-option,
+.question-card h2,
+.lesson-content h2[lang] {
+  font-family: var(--font-body);
 }
 p {
   margin-bottom: 14px;
@@ -1104,7 +1134,7 @@ progress::-moz-progress-bar {
   color: #8b9c7d;
 }
 .word-preview h3 {
-  font-family: Georgia, serif;
+  font-family: var(--font-body);
   font-size: 26px;
   font-weight: 400;
   margin: 16px 0 5px;
@@ -1125,7 +1155,7 @@ progress::-moz-progress-bar {
   margin: 13px 0 18px;
   padding-left: 10px;
   border-left: 2px solid #dce5d4;
-  font-family: Georgia, serif;
+  font-family: var(--font-body);
   font-size: 13px;
   line-height: 1.8;
   font-style: italic;
@@ -1412,6 +1442,27 @@ progress::-moz-progress-bar {
   gap: 7px;
   font-size: 10px;
 }
+.thai-hint {
+  margin: -6px 0 18px;
+  font-size: 14px;
+}
+.thai-hint summary {
+  cursor: pointer;
+  color: var(--primary-dark);
+  font-weight: 600;
+  width: fit-content;
+}
+.thai-hint p {
+  margin: 10px 0 6px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--lavender);
+  line-height: 1.8;
+}
+.thai-hint small {
+  display: block;
+  font-size: 12px;
+}
 .reading-passage {
   border-left: 3px solid #c4b2db;
   margin: 15px 0 25px;
@@ -1593,7 +1644,7 @@ progress::-moz-progress-bar {
   min-height: 365px;
 }
 .flashcard h2 {
-  font-family: Georgia, serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 50px;
   letter-spacing: -1.4px;
@@ -1632,6 +1683,86 @@ progress::-moz-progress-bar {
 .flashcard .privacy-note {
   font-size: 10px;
   margin: 25px 0 0;
+}
+.topic-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.topic-chip {
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12px;
+  cursor: pointer;
+}
+.topic-chip[aria-pressed="true"] {
+  background: var(--lavender);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+.flashcard-tags {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+.flashcard-tags .skill-pill,
+.vocabulary-toolbar .skill-pill {
+  text-transform: none;
+}
+.inline-sound {
+  display: inline-grid;
+  place-items: center;
+  vertical-align: middle;
+  margin-left: 6px;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background: var(--lavender);
+  color: var(--primary);
+}
+.example-thai {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 14px;
+}
+.word-list {
+  max-width: 650px;
+  margin: 0 auto 30px;
+  padding: 18px 22px;
+}
+.word-list summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.word-list ul {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+.word-list li {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) minmax(110px, 1.3fr) auto;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+@media (max-width: 560px) {
+  .word-list li {
+    grid-template-columns: 1fr 1fr;
+  }
+  .word-list li .muted {
+    grid-column: 1 / -1;
+  }
 }
 .activity-chart {
   display: flex;
@@ -1768,19 +1899,117 @@ progress::-moz-progress-bar {
   line-height: 1.9;
   font-size: 13px;
 }
-.tutor-capabilities {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 25px 0 35px;
-  color: var(--muted);
-  font-size: 10px;
-}
-.tutor-capabilities span {
-  display: flex;
+.topic-chip {
+  display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
+}
+.tutor-panel {
+  max-width: 850px;
+  margin: 18px auto 0;
+  padding: 22px;
+}
+.tutor-panel textarea {
+  width: 100%;
+  resize: vertical;
+  margin-bottom: 12px;
+}
+.tutor-panel h2 {
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+.tutor-panel h3 {
+  font-size: 15px;
+  margin: 18px 0 8px;
+}
+.tutor-answer {
+  white-space: pre-line;
+  line-height: 1.9;
+}
+.tutor-examples,
+.writing-issues {
+  display: grid;
+  gap: 10px;
+  padding-left: 18px;
+}
+.writing-issues {
+  list-style: none;
+  padding: 0;
+}
+.writing-issues li {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+.writing-issues p {
+  margin: 6px 0;
+}
+.chat-log {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: grid;
+  gap: 10px;
+}
+.chat-turn {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--bg);
+}
+.chat-turn p {
+  margin: 0;
+}
+.chat-turn.learner {
+  justify-self: end;
+  background: var(--lavender);
+}
+.chat-note {
+  margin-top: 6px !important;
+  font-size: 13px;
+  color: var(--mint-ink);
+}
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--primary-dark);
+  font-weight: 600;
+  cursor: pointer;
+}
+.listening-tags {
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 0 16px;
+}
+.listening-plays {
+  font-size: 12px;
+  margin: 10px 0 20px;
+}
+.speaking-target {
+  font-size: 26px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+.word-heard {
+  color: var(--mint-ink);
+}
+.word-missed {
+  color: #b0603a;
+  text-decoration: underline dotted;
+}
+.speaking-result {
+  margin: 16px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--mint);
+}
+.speaking-result p {
+  margin: 4px 0;
+}
+.tutor-disclaimer {
+  max-width: 850px;
+  margin: 16px auto 30px;
+  text-align: center;
 }
 .settings-data {
   max-width: 790px;
@@ -3393,10 +3622,6 @@ progress::-moz-progress-bar {
   .tutor-intro {
     padding: 28px 18px;
   }
-  .tutor-capabilities {
-    flex-direction: column;
-    align-items: center;
-  }
   .settings-data {
     padding: 25px 18px;
   }
@@ -3616,4 +3841,88 @@ progress::-moz-progress-bar {
 .landing-cta p,
 .visual-bottom {
   color: #756281;
+}
+
+.language-switcher {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.language-switcher button {
+  min-width: 34px;
+  min-height: 34px;
+  border-radius: 7px;
+  padding: 5px 7px;
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--muted);
+}
+.language-switcher button[aria-pressed="true"] {
+  color: var(--primary-dark);
+  background: var(--lavender);
+}
+html[lang="th"] .academy h1,
+html[lang="th"] .academy h2,
+html[lang="th"] .login-card h1 {
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+html[lang="th"] .academy .eyebrow,
+html[lang="th"] .academy .card-eyebrow,
+html[lang="th"] .academy .hero-label {
+  letter-spacing: 0.3px;
+}
+html[lang="th"] .academy .lesson-meta > span:first-child {
+  letter-spacing: 0;
+}
+html[lang="th"] .academy .page-heading h1 {
+  font-size: clamp(24px, 2.4vw, 31px);
+}
+html[lang="th"] .level-ring span {
+  letter-spacing: 0;
+  font-size: 9px;
+}
+html[lang="th"] .learning-hero h2 {
+  font-size: 26px;
+}
+html[lang="th"] .login-card h1 {
+  font-size: 29px;
+}
+@media (max-width: 760px) {
+  .topbar-actions {
+    gap: 6px;
+  }
+  .local-pill {
+    display: none;
+  }
+}
+@media (max-width: 430px) {
+  .breadcrumb > span,
+  .breadcrumb > svg {
+    display: none;
+  }
+  .breadcrumb {
+    gap: 3px;
+  }
+  .topbar {
+    gap: 5px;
+  }
+  .language-switcher button {
+    min-width: 30px;
+    padding: 5px;
+  }
+  html[lang="th"] .learning-hero h2 {
+    font-size: 23px;
+  }
+  html[lang="th"] .login-card h1 {
+    font-size: 26px;
+  }
+  .topbar-actions .avatar.small {
+    display: none;
+  }
 }

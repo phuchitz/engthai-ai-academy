@@ -2,7 +2,7 @@
 
 ## Intended use
 
-A short learning-oriented check, not an official CEFR exam. There are 24 draft multiple-choice items: grammar, vocabulary, and reading, each with two items at each of A1, A2, B1, and B2. The session selects six distinct items per skill, 18 total. Every item includes an answer key, explanation, and learning objective.
+A short learning-oriented check, not an official CEFR exam. There are 48 draft multiple-choice items: grammar, vocabulary, and reading, each with four items at each of A1, A2, B1, and B2. The session selects six distinct items per skill, 18 total. Every item includes an answer key, explanation, and learning objective.
 
 The question bank is author-created and **not independently reviewed or empirically calibrated**. Before public claims of validated placement, a qualified language educator must review items, descriptor alignment, distractors, answer keys, cultural accessibility, and the rule set. No source package supplied a validated bank. C1/C2 are included in the domain model for future expansion but are not measured by this bank.
 
@@ -12,7 +12,7 @@ The question bank is author-created and **not independently reviewed or empirica
 2. Start each skill at A2.
 3. After two successive correct responses, target one level above the most recently answered item, capped at B2.
 4. After an incorrect response, target one level below that item, floored at A1, and reset the correct-answer streak.
-5. Choose an unanswered item at the target level. If exhausted, choose the nearest remaining difficulty in stable bank order.
+5. Choose an unanswered item at the target level. If exhausted, use the nearest remaining difficulty. Among equally near items, a stable hash of the session ID, skill, and answer count picks one, so a retake usually sees different items while a resumed session sees the same item again. Without a session ID, stable bank order is used.
 6. End a skill after six distinct answers; end the session after all three skills.
 
 This is a transparent branching heuristic. It does not estimate an item-response-theory ability parameter. Fixed skill order may create fatigue effects. Items and answer keys are shipped to the browser because this is a low-stakes local learning check; it is unsuitable for secure certification.
@@ -33,6 +33,8 @@ The rule can be conservative and discontinuous. A single contradictory lower-lev
 ## Coverage and feedback
 
 Grammar/vocabulary recognition and short reading comprehension are checked. Listening, writing, and speaking show **Not assessed**. No productive competence or pronunciation score is inferred. Strengths use supported skill levels; priorities use objectives associated with incorrect answers. Draft item explanations are retained for review tooling but are not shown during the test.
+
+Each item has optional, collapsed Thai task help. It shows grammar sentence meaning, translates only the frame of vocabulary items (never the tested word), and translates only the question of reading items (never the passage or choices). Help use is not recorded and does not change scoring, so estimates from learners who rely on it describe recognition with Thai support. The Thai text is author-written and needs the same educator review as the items.
 
 Learning XP, streaks, activity charts, and daily goal progress never alter assessment levels. No percentage is represented as a CEFR certification probability.
 

@@ -31,8 +31,20 @@ export function validAnswers(answers: AssessmentAnswer[]) {
   });
 }
 
+// FNV-1a: a stable, non-cryptographic hash so a session seed always picks the same item.
+function stableHash(text: string) {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < text.length; i++) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return hash >>> 0;
+}
+
+// A seed (the session ID) varies items between sessions; without one, bank order is used.
 export function nextQuestion(
   answers: AssessmentAnswer[],
+  seed?: string,
 ): AssessmentQuestion | null {
   const valid = validAnswers(answers);
   const skill = testedSkills.find(
@@ -63,13 +75,15 @@ export function nextQuestion(
   const remaining = questions.filter(
     (q) => q.skill === skill && !valid.some((a) => a.questionId === q.id),
   );
-  return (
-    remaining.sort(
-      (a, b) =>
-        Math.abs(levels.indexOf(a.level) - difficulty) -
-        Math.abs(levels.indexOf(b.level) - difficulty),
-    )[0] ?? null
-  );
+  if (!remaining.length) return null;
+  const distance = (q: AssessmentQuestion) =>
+    Math.abs(levels.indexOf(q.level) - difficulty);
+  const nearest = Math.min(...remaining.map(distance));
+  const candidates = remaining.filter((q) => distance(q) === nearest);
+  const index = seed
+    ? stableHash(`${seed}:${skill}:${previous.length}`) % candidates.length
+    : 0;
+  return candidates[index];
 }
 
 export function scoreAssessment(answers: AssessmentAnswer[]): AssessmentResult {
