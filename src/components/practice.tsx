@@ -1,4 +1,5 @@
 "use client";
+import { useLanguage } from "./language";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
@@ -9,6 +10,7 @@ import {
   RotateCcw,
   Volume2,
 } from "lucide-react";
+import { lessonCopy } from "@/lib/language";
 import type { LearnerState, Lesson } from "@/lib/models";
 import { scheduleReview, vocabulary } from "@/lib/learning";
 import { Button } from "./ui/button";
@@ -25,6 +27,7 @@ export function LessonPlayer({
   onComplete: (lesson: Lesson) => void;
   backHref: string;
 }) {
+  const { t, language } = useLanguage();
   const [practice, setPractice] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
   const [checked, setChecked] = useState(false);
@@ -32,23 +35,25 @@ export function LessonPlayer({
   return (
     <section className="lesson-player">
       <Link className="text-link" href={backHref}>
-        <ArrowLeft size={15} /> All lessons
+        <ArrowLeft size={15} /> {t("All lessons")}
       </Link>
       <PageHeading
         eyebrow={`${lesson.skill.toUpperCase()} · ${lesson.level} · ${lesson.minutes} MIN`}
-        title={lesson.title}
+        title={lessonCopy(language, lesson).title}
         description={lesson.objective}
       />
       <div className="card lesson-content">
         {!practice ? (
           <>
-            <span className="step-label">01 / UNDERSTAND</span>
-            <h2>Let&apos;s make it click.</h2>
-            <p className="lesson-explanation">{lesson.explanation}</p>
+            <span className="step-label">{t("01 / UNDERSTAND")}</span>
+            <h2>{t("Let's make it click.")}</h2>
+            <p lang="en" className="lesson-explanation">
+              {lesson.explanation}
+            </p>
             <p className="thai-explanation" lang="th">
               {lesson.thai}
             </p>
-            <h3>See it in a sentence</h3>
+            <h3>{t("See it in a sentence")}</h3>
             <div className="example-list">
               {lesson.examples.map((e) => (
                 <p key={e}>
@@ -58,15 +63,16 @@ export function LessonPlayer({
               ))}
             </div>
             <Button onClick={() => setPractice(true)}>
-              Let&apos;s practise <ArrowRight size={16} />
+              {t("Let's practise")}
+              <ArrowRight size={16} />
             </Button>
           </>
         ) : (
           <>
-            <span className="step-label">02 / TRY IT YOURSELF</span>
-            <h2>{lesson.exercise.prompt}</h2>
+            <span className="step-label">{t("02 / TRY IT YOURSELF")}</span>
+            <h2 lang="en">{lesson.exercise.prompt}</h2>
             <fieldset className="answer-options">
-              <legend className="sr-only">Choose your answer</legend>
+              <legend className="sr-only">{t("Choose your answer")}</legend>
               {lesson.exercise.options.map((option, i) => (
                 <label
                   key={option}
@@ -97,39 +103,42 @@ export function LessonPlayer({
               >
                 <strong>
                   {correct
-                    ? "That's it. A little more confidence!"
-                    : "Nearly there. Give it another try."}
+                    ? t("That's it. A little more confidence!")
+                    : t("Nearly there. Give it another try.")}
                 </strong>
                 <p>
                   {correct
                     ? lesson.exercise.feedback
-                    : "Read the explanation again, then choose another answer."}
+                    : t(
+                        "Read the explanation again, then choose another answer.",
+                      )}
                 </p>
               </div>
             )}
             <div className="button-row">
               <Button variant="secondary" onClick={() => setPractice(false)}>
-                <ArrowLeft size={16} /> Explanation
+                <ArrowLeft size={16} /> {t("Explanation")}
               </Button>
               {checked && correct ? (
                 <Button onClick={() => onComplete(lesson)}>
                   <CheckCircle2 size={17} />
                   {completed
-                    ? "Finish review"
-                    : `Complete lesson · +${lesson.xp} XP`}
+                    ? t("Finish review")
+                    : t(`Complete lesson · +${lesson.xp} XP`)}
                 </Button>
               ) : (
                 <Button
                   disabled={selected === null || checked}
                   onClick={() => setChecked(true)}
                 >
-                  Check my answer <Check size={16} />
+                  {t("Check my answer")}
+                  <Check size={16} />
                 </Button>
               )}
             </div>
             {completed && (
               <p className="privacy-note">
-                This is a review. XP is awarded once per lesson.
+                {t("This is a review. XP is awarded once per lesson.")}
               </p>
             )}
           </>
@@ -146,6 +155,7 @@ export function Vocabulary({
   state: LearnerState;
   update: (state: LearnerState) => boolean;
 }) {
+  const { t, language } = useLanguage();
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [audioIssue, setAudioIssue] = useState("");
@@ -201,34 +211,41 @@ export function Vocabulary({
   return (
     <>
       <PageHeading
-        eyebrow="WORDS THAT OPEN DOORS"
-        title="A little vocabulary. A bigger world."
-        description="Learn in context, hear a word, and revisit it when it's time."
+        eyebrow={t("WORDS THAT OPEN DOORS")}
+        title={t("A little vocabulary. A bigger world.")}
+        description={t(
+          "Learn in context, hear a word, and revisit it when it's time.",
+        )}
       />
       <div className="vocabulary-toolbar">
-        <span className="skill-pill">{due.length} words ready to review</span>
-        <span className="muted">Reviews stay in this browser</span>
+        <span className="skill-pill">
+          {language === "th"
+            ? `คำศัพท์ที่พร้อมทบทวน ${due.length} คำ`
+            : `${due.length} words ready to review`}
+        </span>
+        <span className="muted">{t("Reviews stay in this browser")}</span>
       </div>
       {!item ? (
         <div className="assessment-intro card">
           <span className="success-medallion">
             <CheckCircle2 size={30} />
           </span>
-          <h2>A little practice, beautifully done.</h2>
+          <h2>{t("A little practice, beautifully done.")}</h2>
           <p className="muted">
-            You&apos;re up to date. Come back when your next review is due.
+            {t("You're up to date. Come back when your next review is due.")}
           </p>
           <p>
-            Next review:{" "}
+            {t("Next review:")}{" "}
             {state.reviews
               .map((r) => new Date(r.due))
               .sort((a, b) => a.getTime() - b.getTime())[0]
-              ?.toLocaleDateString("en-GB") ?? "Tomorrow"}
+              ?.toLocaleDateString(language === "th" ? "th-TH" : "en-GB") ??
+              "Tomorrow"}
           </p>
         </div>
       ) : (
         <section className="flashcard card">
-          <span className="eyebrow">YOUR NEXT USEFUL WORD</span>
+          <span className="eyebrow">{t("YOUR NEXT USEFUL WORD")}</span>
           <button
             className="sound-button"
             aria-label={`Hear ${item.word}`}
@@ -243,21 +260,24 @@ export function Vocabulary({
               <p className="translation" lang="th">
                 {item.thai}
               </p>
-              <blockquote>{item.example}</blockquote>
+              <blockquote lang="en">{item.example}</blockquote>
               <div className="button-row">
                 <Button variant="secondary" onClick={() => review(false)}>
-                  <RotateCcw size={16} /> Still learning
+                  <RotateCcw size={16} /> {t("Still learning")}
                 </Button>
                 <Button onClick={() => review(true)}>
-                  <Check size={16} /> I remembered
+                  <Check size={16} /> {t("I remembered")}
                 </Button>
               </div>
             </>
           ) : (
             <>
-              <p className="muted">Can you remember what this word means?</p>
+              <p className="muted">
+                {t("Can you remember what this word means?")}
+              </p>
               <Button variant="secondary" onClick={() => setRevealed(true)}>
-                Reveal meaning <ArrowRight size={16} />
+                {t("Reveal meaning")}
+                <ArrowRight size={16} />
               </Button>
             </>
           )}
@@ -267,8 +287,9 @@ export function Vocabulary({
             </p>
           )}
           <p className="privacy-note">
-            Playback uses available browser voices. This is not pronunciation
-            assessment.
+            {t(
+              "Playback uses available browser voices. This is not pronunciation assessment.",
+            )}
           </p>
         </section>
       )}

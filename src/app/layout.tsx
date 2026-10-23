@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { PwaRegistration } from "@/components/pwa";
+import { cookies } from "next/headers";
+import { LANGUAGE_COOKIE, parseLanguage } from "@/lib/language";
+import { LanguageProvider, SkipLink } from "@/components/language";
 import "./globals.css";
 export const metadata: Metadata = {
   title: {
@@ -17,17 +20,18 @@ export const viewport: Viewport = {
   initialScale: 1,
   themeColor: "#f8f7fc",
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const language = parseLanguage((await cookies()).get(LANGUAGE_COOKIE)?.value);
   return (
-    <html lang="en">
+    <html lang={language}>
       <body>
-        <a className="skip-link" href="#main">
-          Skip to content
-        </a>
-        {children}
-        <PwaRegistration />
+        <LanguageProvider initialLanguage={language}>
+          <SkipLink />
+          {children}
+          <PwaRegistration />
+        </LanguageProvider>
       </body>
     </html>
   );

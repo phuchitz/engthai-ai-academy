@@ -1,5 +1,16 @@
 import { test, expect } from "@playwright/test";
 
+test.beforeEach(async ({ context }) => {
+  await context.addCookies([
+    {
+      name: "engthai-language",
+      value: "en",
+      url: "http://localhost:3000",
+      sameSite: "Lax",
+    },
+  ]);
+});
+
 test("demo learner can onboard, finish a skills check, complete a lesson, and reload progress", async ({
   page,
 }) => {
@@ -89,6 +100,7 @@ test("public screens fit the viewport and theme, navigation and vocabulary work"
   for (const route of [
     "/",
     "/login",
+    "/welcome",
     "/demo",
     "/demo/lessons",
     "/demo/grammar",
@@ -109,7 +121,7 @@ test("public screens fit the viewport and theme, navigation and vocabulary work"
         path: `docs/screenshots/dashboard-${isMobile ? "mobile" : "desktop"}.png`,
         fullPage: true,
       });
-    if (route === "/")
+    if (route === "/welcome")
       await page.screenshot({
         path: `docs/screenshots/welcome-${isMobile ? "mobile" : "desktop"}.png`,
         fullPage: true,

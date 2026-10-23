@@ -1,4 +1,5 @@
 "use client";
+import { useLanguage } from "./language";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -14,11 +15,13 @@ import {
   Target,
   Zap,
 } from "lucide-react";
+import { lessonCopy } from "@/lib/language";
 import type { LearnerState, Lesson } from "@/lib/models";
 import { dailyProgress, dayKey, lessons, streakDays } from "@/lib/learning";
 import { scoreAssessment } from "@/lib/assessment";
 
 export function Stats({ state }: { state: LearnerState }) {
+  const { t } = useLanguage();
   const totalXp = state.attempts.reduce((sum, a) => sum + a.xp, 0);
   const data = [
     {
@@ -44,7 +47,7 @@ export function Stats({ state }: { state: LearnerState }) {
           </span>
           <div>
             <strong>{value.toLocaleString()}</strong>
-            <span>{label}</span>
+            <span>{t(label)}</span>
           </div>
         </div>
       ))}
@@ -61,37 +64,41 @@ export function LevelCard({
   href: string;
   assessmentStarted: boolean;
 }) {
+  const { t } = useLanguage();
   return (
     <section className="level-card card">
       <div className="card-eyebrow">
-        YOUR STARTING POINT <span className="tiny-badge">PRELIMINARY</span>
+        {t("YOUR STARTING POINT")}
+        <span className="tiny-badge">{t("PRELIMINARY")}</span>
       </div>
       <div className="level-center">
         <div className="level-ring">
           <div>
             <strong>{result?.estimatedLevel ?? "?"}</strong>
             <span>
-              {result?.estimatedLevel ? "estimated" : "LET'S FIND OUT"}
+              {result?.estimatedLevel ? t("estimated") : t("LET'S FIND OUT")}
             </span>
           </div>
         </div>
         <h3>
           {result?.estimatedLevel
-            ? "A foundation to grow from"
-            : "Your potential is waiting."}
+            ? t("A foundation to grow from")
+            : t("Your potential is waiting.")}
         </h3>
         <p className="muted">
           {result
-            ? `${result.coverage} of 6 skills checked. Recognition evidence only.`
-            : "A short skills check helps us find the right place to begin."}
+            ? t(
+                `${result.coverage} of 6 skills checked. Recognition evidence only.`,
+              )
+            : t("A short skills check helps us find the right place to begin.")}
         </p>
       </div>
       <Link href={href} className="level-link">
         {result
-          ? "Understand my results"
+          ? t("Understand my results")
           : assessmentStarted
-            ? "Continue my skills check"
-            : "Find my starting point"}
+            ? t("Continue my skills check")
+            : t("Find my starting point")}
         <ArrowRight size={16} />
       </Link>
     </section>
@@ -99,6 +106,7 @@ export function LevelCard({
 }
 
 export function DailyGoal({ state }: { state: LearnerState }) {
+  const { t, language } = useLanguage();
   const today = dailyProgress(state.attempts).find(
     (d) => d.date === dayKey(new Date()),
   );
@@ -113,27 +121,31 @@ export function DailyGoal({ state }: { state: LearnerState }) {
   return (
     <section className="daily-goal card">
       <div className="card-eyebrow">
-        TODAY&apos;S LITTLE GOAL <Target size={17} />
+        {t("TODAY'S LITTLE GOAL")}
+        <Target size={17} />
       </div>
       <div className="goal-value">
         <strong>
           {minutes}
-          <small> / {goal} min</small>
+          <small>
+            {" "}
+            / {goal} {language === "th" ? "นาที" : t("min")}
+          </small>
         </strong>
         <span>{today?.xp ?? 0} XP</span>
       </div>
       <progress
-        aria-label="Estimated lesson minutes toward daily goal"
+        aria-label={t("Estimated lesson minutes toward daily goal")}
         value={Math.min(minutes, goal)}
         max={goal}
       />
       <p>
         {minutes >= goal
-          ? "You made time for yourself. Well done!"
-          : "Make a little space for your future self."}
+          ? t("You made time for yourself. Well done!")
+          : t("Make a little space for your future self.")}
       </p>
       <small className="muted">
-        Minutes use lesson estimates, not a timer.
+        {t("Minutes use lesson estimates, not a timer.")}
       </small>
     </section>
   );
@@ -150,6 +162,8 @@ export function LessonCard({
   complete: boolean;
   index: number;
 }) {
+  const { t, language } = useLanguage();
+  const copy = lessonCopy(language, lesson);
   const Icon =
     lesson.skill === "grammar"
       ? AudioLines
@@ -164,20 +178,20 @@ export function LessonCard({
       </span>
       <div className="lesson-info">
         <div className="lesson-meta">
-          <span>{lesson.skill}</span>
+          <span>{t(lesson.skill)}</span>
           <span className="meta-dot">·</span>
           {lesson.level}
           <span className="meta-dot">·</span>
-          <Clock3 size={11} /> {lesson.minutes} min
+          <Clock3 size={11} /> {lesson.minutes} {t("min")}
         </div>
-        <h3>{lesson.title}</h3>
-        <p>{lesson.description}</p>
+        <h3>{copy.title}</h3>
+        <p>{copy.description}</p>
       </div>
       <div className="lesson-end">
         <span className={complete ? "complete-badge" : "xp-badge"}>
           {complete ? (
             <>
-              <Check size={12} /> Completed
+              <Check size={12} /> {t("Completed")}
             </>
           ) : (
             `+${lesson.xp} XP`
